@@ -1,3 +1,18 @@
+/*
+test case
+
+6 6 0
+0 0 15
+0 3 22
+0 5 -15
+1 1 11
+1 2 3
+2 3 -6
+4 0 91
+5 2 28
+0 0 0
+*/
+
 #include <stdio.h>
 #define MAX_MATRIX 100
 
@@ -13,6 +28,7 @@ Matrix trans_Matrix[MAX_MATRIX];
 
 void waring();
 void printMenu(int* menu);
+void printMatrix();
 void Transpose();
 
 int main(void)
@@ -42,7 +58,10 @@ int main(void)
         }
 
         
-        if (menu == 2)
+        else if (menu == 2)
+            printMatrix();
+
+        else if (menu == 3)
             Transpose();
 
     } while(menu);
@@ -63,11 +82,18 @@ void printMenu(int* menu)
     printf("\n\n==메뉴==\n");
     printf("0. 종료\n");
     printf("1. 희소행렬 입력하기\n");
-    printf("2. 전치 행렬 구하기\n");
+    printf("2. 희소행렬 출력하기\n");
+    printf("3. 전치 행렬 구하기\n");
     printf("========\n\n");
 
     printf("입력 : ");
     scanf("%d", menu);
+}
+
+void printMatrix()
+{
+    for (int i = 0; i <= sparseMatrix[0].value; i++)
+        printf("%d %d %d\n", sparseMatrix[i].row, sparseMatrix[i].col, sparseMatrix[i].value);
 }
 
 void Transpose()
