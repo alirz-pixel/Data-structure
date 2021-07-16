@@ -13,6 +13,7 @@ void printMenu(char* command);
 void initialize(listNode** headNode);
 void listPrint(listNode* headNode);
 void insertNode(listNode* headNode, int data);
+void deleteNode(listNode* headNode, int data);
 void freeNode(listNode* headNode);
 
 
@@ -42,6 +43,9 @@ int main(void)
                 break;
 
             case 'd':
+                printf("\n삭제할 데이터를 입력해 주세요 : ");
+                scanf("%d", &data);
+                deleteNode(head, data);
                 break;
 
             case 'n':
@@ -160,6 +164,38 @@ void insertNode(listNode* headNode, int data)
 
         searchNode->pre->next = newNode;
         searchNode->pre = newNode;
+    }
+
+    return;
+}
+
+void deleteNode(listNode* headNode, int data)
+{
+    if (headNode == NULL)
+    {
+        printf("Error! : initialize를 진행한 후에 다시 진행해 주세요\n");
+        return;
+    }
+
+    if (headNode == headNode->next)
+    {
+        printf("Error! : 리스트가 비어있습니다.\n");
+        return;
+    }
+
+
+    listNode* searchNode = headNode->next;
+    
+    while(searchNode != headNode)
+    {
+        if (searchNode->data == data)
+        {
+            searchNode->pre->next = searchNode->next;
+            searchNode->next->pre = searchNode->pre;
+            break;
+        }
+
+        searchNode = searchNode->next;
     }
 
     return;
