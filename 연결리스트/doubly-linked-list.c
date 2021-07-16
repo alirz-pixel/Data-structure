@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 typedef struct _listNode{
     int data;
@@ -9,6 +10,7 @@ typedef struct _listNode{
 /*  사용자 정의 함수  */
 void printMenu(char* command);
 void initialize(listNode** headNode);
+void freeNode(listNode* headNode);
 
 
 int main(void)
@@ -50,6 +52,7 @@ int main(void)
                 break;
 
             case 'q':
+                freeNode(head);
                 break;
         }
     } while(command != 'q');
@@ -76,11 +79,30 @@ void printMenu(char* command)
 
 void initialize(listNode** headNode)
 {
-    // 추후에 freeNode 함수를 만들게 될 경우 사용할 예정
-    // if (*headNode != NULL)
-        // freeNode
+    if (*headNode != NULL)
+        freeNode(*headNode);
 
     (*headNode) = (listNode*)malloc(sizeof(listNode));
     (*headNode)->next = NULL;
     (*headNode)->data = 0;
+}
+
+void freeNode(listNode* headNode)
+{
+    if (headNode == NULL)
+        return;
+
+    listNode* deleteNode = headNode;
+    listNode* searchNode = headNode->next;
+
+    while(searchNode != NULL)
+    {
+        free(deleteNode);
+
+        deleteNode = searchNode;
+        searchNode = searchNode->next;
+    }
+    free(deleteNode);
+
+    return;
 }
