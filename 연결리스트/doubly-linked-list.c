@@ -8,14 +8,16 @@ typedef struct _listNode{
 } listNode;
 
 
-/*  ì‚¬ìš©ìž ì •ì˜ í•¨ìˆ˜  */
+/*  »ç¿ëÀÚ Á¤ÀÇ ÇÔ¼ö  */
 void printMenu(char* command);
 void initialize(listNode** headNode);
+void insertNode(listNode* headNode, int data);
 void freeNode(listNode* headNode);
 
 
 int main(void)
 {
+    int data;
     char command;
     listNode* head = NULL;
 
@@ -32,6 +34,9 @@ int main(void)
                 break;
 
             case 'i':
+                printf("\n»ðÀÔÇÒ µ¥ÀÌÅÍ¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä : ");
+                scanf("%d", &data);
+                insertNode(head, data);
                 break;
 
             case 'd':
@@ -87,6 +92,50 @@ void initialize(listNode** headNode)
     (*headNode)->next = NULL;
     (*headNode)->pre = NULL;
     (*headNode)->data = 0;
+}
+
+void insertNode(listNode* headNode, int data)
+{
+    if (headNode == NULL)
+    {
+        printf("Error! : initialize¸¦ ÁøÇàÇÑ ÈÄ¿¡ ´Ù½Ã ÁøÇàÇØ ÁÖ¼¼¿ä\n");
+        return;
+    }
+
+
+    listNode* newNode = (listNode*)malloc(sizeof(listNode));
+    newNode->next = headNode;
+    newNode->pre = headNode;
+    newNode->data = data;
+
+    // ÀÌÁß ¿¬°á¸®½ºÆ®°¡ ºñ¾îÀÖ´Ù¸é
+    if (headNode->next == NULL)
+    {
+        headNode->next = newNode;
+        headNode->pre = newNode;
+    }
+
+    else
+    {
+        // µé¾î°¥ °ø°£ Ã£±â
+        listNode* searchNode = headNode->next;
+
+        while(searchNode != headNode)
+        {
+            if (data < searchNode->data)
+                break;
+            
+            searchNode = searchNode->next;
+        }
+
+        newNode->next = searchNode;
+        newNode->pre = searchNode->pre;
+
+        searchNode->pre->next = newNode;
+        searchNode->pre = newNode;
+    }
+
+    return;
 }
 
 void freeNode(listNode* headNode)
