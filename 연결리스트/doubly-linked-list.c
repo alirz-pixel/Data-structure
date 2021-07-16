@@ -95,8 +95,8 @@ void initialize(listNode** headNode)
         freeNode(*headNode);
 
     (*headNode) = (listNode*)malloc(sizeof(listNode));
-    (*headNode)->next = NULL;
-    (*headNode)->pre = NULL;
+    (*headNode)->next = *headNode;
+    (*headNode)->pre = *headNode;
     (*headNode)->data = 0;
 }
 
