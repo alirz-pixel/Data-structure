@@ -8,6 +8,7 @@ typedef struct _listNode{
 
 /*  사용자 정의 함수  */
 void printMenu(char* command);
+void initialize(listNode** headNode);
 
 
 int main(void)
@@ -21,6 +22,7 @@ int main(void)
         switch(command)
         {
             case 'z':
+                initialize(&head);
                 break;
 
             case 'p':
@@ -72,3 +74,13 @@ void printMenu(char* command)
 }
 
 
+void initialize(listNode** headNode)
+{
+    // 추후에 freeNode 함수를 만들게 될 경우 사용할 예정
+    // if (*headNode != NULL)
+        // freeNode
+
+    (*headNode) = (listNode*)malloc(sizeof(listNode));
+    (*headNode)->next = NULL;
+    (*headNode)->data = 0;
+}
