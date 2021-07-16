@@ -11,6 +11,7 @@ typedef struct _listNode{
 /*  사용자 정의 함수  */
 void printMenu(char* command);
 void initialize(listNode** headNode);
+void listPrint(listNode* headNode);
 void insertNode(listNode* headNode, int data);
 void freeNode(listNode* headNode);
 
@@ -31,6 +32,7 @@ int main(void)
                 break;
 
             case 'p':
+                listPrint(head);
                 break;
 
             case 'i':
@@ -92,6 +94,31 @@ void initialize(listNode** headNode)
     (*headNode)->next = NULL;
     (*headNode)->pre = NULL;
     (*headNode)->data = 0;
+}
+
+void listPrint(listNode* headNode)
+{
+    if (headNode == NULL)
+    {
+        printf("Error! : initialize를 진행한 후에 다시 진행해 주세요\n");
+        return;
+    }
+
+    if (headNode == headNode->next)
+    {
+        printf("리스트가 비어있습니다.\n");
+        return;
+    }
+
+    int cnt = 0;
+    listNode* searchNode = headNode->next;
+    while(searchNode != headNode)
+    {
+        printf(" [%d] ->", searchNode->data);
+        searchNode = searchNode->next;
+        cnt++;
+    }
+    printf("\n == 데이터 수 : %d\n\n", cnt);
 }
 
 void insertNode(listNode* headNode, int data)
