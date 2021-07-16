@@ -4,6 +4,7 @@
 typedef struct _listNode{
     int data;
     struct _listNode* next;
+    struct _listNode* pre;
 } listNode;
 
 
@@ -84,6 +85,7 @@ void initialize(listNode** headNode)
 
     (*headNode) = (listNode*)malloc(sizeof(listNode));
     (*headNode)->next = NULL;
+    (*headNode)->pre = NULL;
     (*headNode)->data = 0;
 }
 
