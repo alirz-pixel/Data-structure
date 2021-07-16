@@ -146,7 +146,7 @@ void freeNode(listNode* headNode)
     listNode* deleteNode = headNode;
     listNode* searchNode = headNode->next;
 
-    while(searchNode != NULL)
+    while(searchNode != headNode)
     {
         free(deleteNode);
 
