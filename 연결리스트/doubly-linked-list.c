@@ -14,6 +14,7 @@ void initialize(listNode** headNode);
 void listPrint(listNode* headNode);
 void insertNode(listNode* headNode, int data);
 void insertLast(listNode* headNode, int data);
+void insertFirst(listNode* headNode, int data);
 void deleteNode(listNode* headNode, int data);
 void freeNode(listNode* headNode);
 
@@ -48,6 +49,12 @@ int main(void)
                 insertLast(head, data);
                 break;
 
+            case 'f':
+                printf("\n삽입할 데이터를 입력해 주세요 : ");
+                scanf("%d", &data);
+                insertFirst(head, data);
+                break;
+
             case 'd':
                 printf("\n삭제할 데이터를 입력해 주세요 : ");
                 scanf("%d", &data);
@@ -55,9 +62,6 @@ int main(void)
                 break;
 
             case 'e':
-                break;
-
-            case 'f':
                 break;
 
             case 't':
@@ -190,6 +194,26 @@ void insertLast(listNode* headNode, int data)
 
     headNode->pre->next = newNode;
     headNode->pre = newNode;
+
+    return;
+}
+
+void insertFirst(listNode* headNode, int data)
+{
+    if (headNode == NULL)
+    {
+        printf("Error! : initialize를 진행한 후에 다시 진행해 주세요\n");
+        return;
+    }
+
+
+    listNode* newNode = (listNode*)malloc(sizeof(listNode));
+    newNode->pre = headNode;
+    newNode->next = headNode->next;
+    newNode->data = data;
+
+    headNode->next->pre = newNode;
+    headNode->next = newNode;
 
     return;
 }
