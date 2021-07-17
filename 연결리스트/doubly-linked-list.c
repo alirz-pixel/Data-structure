@@ -13,9 +13,9 @@ void printMenu(char* command);
 void initialize(listNode** headNode);
 void listPrint(listNode* headNode);
 void insertNode(listNode* headNode, int data);
+void insertLast(listNode* headNode, int data);
 void deleteNode(listNode* headNode, int data);
 void freeNode(listNode* headNode);
-
 
 int main(void)
 {
@@ -42,13 +42,16 @@ int main(void)
                 insertNode(head, data);
                 break;
 
+            case 'n':
+                printf("\n삽입할 데이터를 입력해 주세요 : ");
+                scanf("%d", &data);
+                insertLast(head, data);
+                break;
+
             case 'd':
                 printf("\n삭제할 데이터를 입력해 주세요 : ");
                 scanf("%d", &data);
                 deleteNode(head, data);
-                break;
-
-            case 'n':
                 break;
 
             case 'e':
@@ -165,6 +168,28 @@ void insertNode(listNode* headNode, int data)
         searchNode->pre->next = newNode;
         searchNode->pre = newNode;
     }
+
+    return;
+}
+
+void insertLast(listNode* headNode, int data)
+{
+    if (headNode == NULL)
+    {
+        printf("Error! : initialize를 진행한 후에 다시 진행해 주세요\n");
+        return;
+    }
+
+
+    // head->pre는 마지막 노드의 위치이므로 
+    // head->pre에다가 노드를 삽입한다.
+    listNode* newNode = (listNode*)malloc(sizeof(listNode));
+    newNode->pre = headNode->pre;
+    newNode->next = headNode;
+    newNode->data = data;
+
+    headNode->pre->next = newNode;
+    headNode->pre = newNode;
 
     return;
 }
