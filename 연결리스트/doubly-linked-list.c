@@ -192,12 +192,15 @@ void deleteNode(listNode* headNode, int data)
         {
             searchNode->pre->next = searchNode->next;
             searchNode->next->pre = searchNode->pre;
-            break;
+
+            free(searchNode);
+            return;
         }
 
         searchNode = searchNode->next;
     }
 
+    printf("삭제하고자 하는 노드가 리스트에 없습니다.");
     return;
 }
 
