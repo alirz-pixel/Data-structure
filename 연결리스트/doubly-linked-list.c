@@ -16,6 +16,7 @@ void insertNode(listNode* headNode, int data);
 void insertLast(listNode* headNode, int data);
 void insertFirst(listNode* headNode, int data);
 void deleteNode(listNode* headNode, int data);
+void deleteLast(listNode* headNode);
 void freeNode(listNode* headNode);
 
 int main(void)
@@ -62,6 +63,7 @@ int main(void)
                 break;
 
             case 'e':
+                deleteLast(head);
                 break;
 
             case 't':
@@ -250,6 +252,30 @@ void deleteNode(listNode* headNode, int data)
     }
 
     printf("삭제하고자 하는 노드가 리스트에 없습니다.");
+    return;
+}
+
+void deleteLast(listNode* headNode)
+{
+    if (headNode == NULL)
+    {
+        printf("Error! : initialize를 진행한 후에 다시 진행해 주세요\n");
+        return;
+    }
+
+    if (headNode == headNode->next)
+    {
+        printf("Error! : 리스트가 비어있습니다.\n");
+        return;
+    }
+
+
+    listNode* delNode = headNode->pre;
+    
+    delNode->pre->next = headNode;
+    headNode->pre = delNode->pre;
+
+    free(delNode);
     return;
 }
 
